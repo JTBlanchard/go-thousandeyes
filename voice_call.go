@@ -45,7 +45,7 @@ type VoiceCall struct {
 	JitterBuffer         int            `json:"jitterBuffer,omitempty"`
 	SIPTargetTime        int            `json:"sipTargetTime,omitempty"`
 	SIPTimeLimit         int            `json:"sipTimeLimit,omitempty"`
-	TargetAgentID        int            `json:"targetAgentID,omitempty"`
+	TargetAgentID        int            `json:"targetAgentId,omitempty"`
 }
 
 // AddAgent - Add agent to voice call  test
