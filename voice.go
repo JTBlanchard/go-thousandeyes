@@ -59,12 +59,12 @@ func (c *Client) GetRTPStream(id int) (*RTPStream, error) {
 
 //CreateRTPStream - Create voice call test
 func (c Client) CreateRTPStream(t RTPStream) (*RTPStream, error) {
-	resp, err := c.post("/tests/voice-call/new", t, nil)
+	resp, err := c.post("/tests/voice/new", t, nil)
 	if err != nil {
 		return &t, err
 	}
 	if resp.StatusCode != 201 {
-		return &t, fmt.Errorf("failed to create voice-call test, response code %d", resp.StatusCode)
+		return &t, fmt.Errorf("failed to create voice test, response code %d", resp.StatusCode)
 	}
 	var target map[string][]RTPStream
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
@@ -75,12 +75,12 @@ func (c Client) CreateRTPStream(t RTPStream) (*RTPStream, error) {
 
 //DeleteRTPStream - delete voice call test
 func (c *Client) DeleteRTPStream(id int) error {
-	resp, err := c.post(fmt.Sprintf("/tests/voice-call/%d/delete", id), nil, nil)
+	resp, err := c.post(fmt.Sprintf("/tests/voice/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
 	}
 	if resp.StatusCode != 204 {
-		return fmt.Errorf("failed to delete voice-call test, response code %d", resp.StatusCode)
+		return fmt.Errorf("failed to delete voice test, response code %d", resp.StatusCode)
 	}
 	return nil
 }
