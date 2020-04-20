@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type sipAuthData struct {
+type SIPAuthData struct {
 	AuthUser     string `json:"authUser,omitempty"`
 	Password     string `json:"password,omitempty"`
 	Port         int    `json:"port,omitempty"`
@@ -37,8 +37,8 @@ type VoiceCall struct {
 	BgpMeasurements      int            `json:"bgpMeasurements,omitempty"`
 	Dscp                 string         `json:"dscp,omitempty"`
 	DscpID               int            `json:"dscpId,omitempty"`
-	TargetSipCredentials sipAuthData    `json:"targetSipCredentials,omitempty"`
-	SourceSipCredentials sipAuthData    `json:"sourceSipCredentials,omitempty"`
+	TargetSipCredentials SIPAuthData    `json:"targetSipCredentials,omitempty"`
+	SourceSipCredentials SIPAuthData    `json:"sourceSipCredentials,omitempty"`
 	Codec                string         `json:"codec,omitempty"`
 	CodecID              int            `json:"codecId,omitempty"`
 	Duration             int            `json:"duration,omitempty"`

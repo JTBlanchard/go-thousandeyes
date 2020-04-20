@@ -27,7 +27,7 @@ type SIPServer struct {
 	BgpMeasurements      int            `json:"bgpMeasurements,omitempty"`
 	MtuMeasurements      int            `json:"mtuMeasurements,omitempty"`
 	NetworkMeasurements  int            `json:"networkMeasurements,omitempty"`
-	TargetSipCredentials sipAuthData    `json:"targetSipCredentials,omitempty"`
+	TargetSipCredentials SIPAuthData    `json:"targetSipCredentials,omitempty"`
 	User                 string         `json:"user,omitempty"`
 	Password             string         `json:"password,omitempty"`
 	OptionsRegex         string         `json:"options_regex,omitempty"`
