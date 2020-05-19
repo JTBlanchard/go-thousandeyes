@@ -43,22 +43,21 @@ func (c *Client) GetGroupLabelsByType(t string) (*GroupLabels, error) {
 	return &labels, nil
 }
 
-// GetGroupLabelsByID - Get label
-func (c *Client) GetGroupLabelsByID(id int) (*GroupLabels, error) {
+// GetGroupLabel - Get single group label by ID
+func (c *Client) GetGroupLabel(id int) (*GroupLabel, error) {
 	resp, err := c.get(fmt.Sprintf("/groups/%d", id))
 	if err != nil {
-		return &GroupLabels{}, err
+		return &GroupLabel{}, err
 	}
-	var target map[string]GroupLabels
+	var target map[string][]GroupLabel
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
-	labels := target["groups"]
-	return &labels, nil
+	return &target["groups"][0], nil
 }
 
 // CreateGroupLabel - Create label
-func (c Client) CreateGroupLabel(a GroupLabel) (*GroupLabels, error) {
+func (c Client) CreateGroupLabel(a GroupLabel) (*GroupLabel, error) {
 	resp, err := c.post("/groups/new", a, nil)
 	if err != nil {
 		return nil, err
@@ -72,9 +71,7 @@ func (c Client) CreateGroupLabel(a GroupLabel) (*GroupLabels, error) {
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
-	labels := target["groups"]
-
-	return &labels, nil
+	return &target["groups"][0], nil
 }
 
 //DeleteGroupLabel - delete label
