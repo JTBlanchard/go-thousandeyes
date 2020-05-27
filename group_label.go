@@ -7,12 +7,12 @@ type GroupLabels []GroupLabel
 
 // GroupLabel - label
 type GroupLabel struct {
-	GroupLabelName string      `json:"name,omitempty"`
-	GroupLabelID   int         `json:"groupId,omitempty"`
-	BuiltIn        int         `json:"builtin,omitempty"`
-	GroupLabelType string      `json:"type,omitempty"`
-	Agents         Agents      `json:"agents,omitempty"`
-	Tests          interface{} `json:"tests,omitempty"`
+	Name    string      `json:"name,omitempty"`
+	GroupID int         `json:"groupId,omitempty"`
+	BuiltIn int         `json:"builtin,omitempty"`
+	Type    string      `json:"type,omitempty"`
+	Agents  []Agents    `json:"agents,omitempty"`
+	Tests   interface{} `json:"tests,omitempty"`
 }
 
 // GetGroupLabels - Get labels

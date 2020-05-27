@@ -18,7 +18,7 @@ func TestClient_GetGroupLabels(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := GroupLabels{
-		GroupLabel{GroupLabelID: 1, GroupLabelType: "tests", GroupLabelName: "exampleName"},
+		GroupLabel{GroupID: 1, Type: "tests", Name: "exampleName"},
 	}
 
 	res, err := client.GetGroupLabels()
@@ -39,7 +39,7 @@ func TestClient_GetGroupLabelsByType(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := GroupLabels{
-		GroupLabel{GroupLabelID: 1, BuiltIn: 0, GroupLabelType: "tests", GroupLabelName: "test-agent"},
+		GroupLabel{GroupID: 1, BuiltIn: 0, Type: "tests", Name: "test-agent"},
 	}
 
 	res, err := client.GetGroupLabelsByType("tests")
@@ -65,7 +65,7 @@ func TestClient_GetGroupLabel(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := GroupLabel{
-		GroupLabelID: 222, BuiltIn: 0, GroupLabelType: "tests", GroupLabelName: "test-agent",
+		GroupID: 222, BuiltIn: 0, Type: "tests", Name: "test-agent",
 	}
 
 	res, err := client.GetGroupLabel(222)
@@ -153,12 +153,12 @@ func TestClient_UpdateGroupLabel(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 222
-	u := GroupLabel{GroupLabelType: "tests"}
+	u := GroupLabel{Type: "tests"}
 	res, err := client.UpdateGroupLabel(id, u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := GroupLabels{GroupLabel{GroupLabelID: 222, GroupLabelType: "tests", GroupLabelName: "test-agent"}}
+	expected := GroupLabels{GroupLabel{GroupID: 222, Type: "tests", Name: "test-agent"}}
 	assert.Equal(t, &expected, res)
 }
 
@@ -172,12 +172,12 @@ func TestClient_CreateGroupLabel(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	u := GroupLabel{GroupLabelName: "test"}
+	u := GroupLabel{Name: "test"}
 	res, err := client.CreateGroupLabel(u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := GroupLabel{GroupLabelID: 1, GroupLabelName: "test"}
+	expected := GroupLabel{GroupID: 1, Name: "test"}
 	assert.Equal(t, &expected, res)
 }
 
