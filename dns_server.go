@@ -12,10 +12,10 @@ type Server struct {
 
 // DNSServer - dns server test
 type DNSServer struct {
-	Agents                Agents         `json:"agents,omitempty"`
+	Agents                []Agent        `json:"agents,omitempty"`
 	AlertsEnabled         int            `json:"alertsEnabled,omitempty"`
-	AlertRules            AlertRules     `json:"alertRules,omitempty"`
-	APILinks              APILinks       `json:"apiLinks,omitempty"`
+	AlertRules            []AlertRule    `json:"alertRules,omitempty"`
+	APILinks              []APILink      `json:"apiLinks,omitempty"`
 	CreatedBy             string         `json:"createdBy,omitempty"`
 	CreatedDate           string         `json:"createdDate,omitempty"`
 	Description           string         `json:"description,omitempty"`
@@ -31,7 +31,7 @@ type DNSServer struct {
 	Type                  string         `json:"type,omitempty"`
 	BandwidthMeasurements int            `json:"bandwidthMeasurements,omitempty"`
 	BgpMeasurements       int            `json:"bgpMeasurements,omitempty"`
-	BgpMonitors           BGPMonitors    `json:"bgpMonitors,omitempty"`
+	BgpMonitors           []BGPMonitor   `json:"bgpMonitors,omitempty"`
 	DNSServers            []Server       `json:"dnsServers,omitempty"`
 	DNSTransportProtocol  string         `json:"dnsTransportProtocol,omitempty"`
 	Domain                string         `json:"domain,omitempty"`

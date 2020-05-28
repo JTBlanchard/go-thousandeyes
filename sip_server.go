@@ -9,7 +9,7 @@ type SIPServer struct {
 	Agents               []Agent        `json:"agents,omitempty"`
 	AlertsEnabled        int            `json:"alertsEnabled,omitempty"`
 	AlertRules           []AlertRule    `json:"alertRules,omitempty"`
-	APILinks             APILinks       `json:"apiLinks,omitempty"`
+	APILinks             []APILink      `json:"apiLinks,omitempty"`
 	CreatedBy            string         `json:"createdBy,omitempty"`
 	CreatedDate          string         `json:"createdDate,omitempty"`
 	Description          string         `json:"description,omitempty"`
@@ -30,7 +30,7 @@ type SIPServer struct {
 	TargetSipCredentials SIPAuthData    `json:"targetSipCredentials,omitempty"`
 	User                 string         `json:"user,omitempty"`
 	Password             string         `json:"password,omitempty"`
-	OptionsRegex         string         `json:"options_regex,omitempty"`
+	OptionsRegex         string         `json:"optionsRegex,omitempty"`
 	RegisterEnabled      int            `json:"registerEnabled,omitempty"`
 	SIPTargetTime        int            `json:"sipTargetTime,omitempty"`
 	SIPTimeLimit         int            `json:"sipTimeLimit,omitempty"`

@@ -6,10 +6,10 @@ import (
 
 // WebTransaction - a web transcation test
 type WebTransaction struct {
-	Agents                Agents              `json:"agents,omitempty"`
+	Agents                []Agent             `json:"agents,omitempty"`
 	AlertsEnabled         int                 `json:"alertsEnabled,omitempty"`
-	AlertRules            AlertRules          `json:"alertRules,omitempty"`
-	APILinks              APILinks            `json:"apiLinks,omitempty"`
+	AlertRules            []AlertRule         `json:"alertRules,omitempty"`
+	APILinks              []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy             string              `json:"createdBy,omitempty"`
 	CreatedDate           string              `json:"createdDate,omitempty"`
 	Description           string              `json:"description,omitempty"`

@@ -34,9 +34,9 @@ type Agent struct {
 type ClusterMember struct {
 	MemberID          int      `json:"memberId,omitempty"`
 	Name              string   `json:"name,omitempty"`
-	IPAddresses       []string `json:"IPAddresses,omitempty"`
-	PublicIPAddresses []string `json:"PublicIPAddresses,omitempty"`
-	Prefix            string   `json:"Prefix,omitempty"`
+	IPAddresses       []string `json:"ipAddresses,omitempty"`
+	PublicIPAddresses []string `json:"publicIPAddresses,omitempty"`
+	Prefix            string   `json:"prefix,omitempty"`
 	Network           string   `json:"network,omitempty"`
 	LastSeen          string   `json:"lastSeen,omitempty"`
 	AgentState        string   `json:"agentState,omitempty"`
