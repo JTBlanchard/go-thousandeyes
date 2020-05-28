@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient_GetGroupLabels(t *testing.T) {
-	out := `{"groups" : [ {"GroupID":1, "type" : "tests" , "name": "exampleName" }]}`
+	out := `{"groups" : [ {"groupId":1, "type" : "tests" , "name": "exampleName" }]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/groups.json", func(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +29,7 @@ func TestClient_GetGroupLabels(t *testing.T) {
 }
 
 func TestClient_GetGroupLabelsByType(t *testing.T) {
-	out := `{"groups" : [ {"	:1, "type" : "tests", "name": "test-agent" }]}`
+	out := `{"groups" : [ {"groupId":1, "type" : "tests", "name": "test-agent" }]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/groups/tests.json", func(w http.ResponseWriter, r *http.Request) {
@@ -164,7 +164,7 @@ func TestClient_UpdateGroupLabel(t *testing.T) {
 
 func TestClient_CreateGroupLabel(t *testing.T) {
 	setup()
-	out := `{"groups" : [ {"GroupID":1, "name": "test"}]}`
+	out := `{"groups" : [ {"groupId":1, "name": "test"}]}`
 	mux.HandleFunc("/groups/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
