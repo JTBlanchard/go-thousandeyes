@@ -51,14 +51,15 @@ func (c *Client) GetGroupLabel(id int) (*GroupLabel, error) {
 	}
 	var target map[string][]GroupLabel
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
-		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+		return nil, fmt.Errorf("could not decode JSON response: %v more error %+v", dErr, dErr.Error())
 	}
 	return &target["groups"][0], nil
 }
 
 // CreateGroupLabel - Create label
 func (c Client) CreateGroupLabel(a GroupLabel) (*GroupLabel, error) {
-	resp, err := c.post("/groups/new", a, nil)
+	path := fmt.Sprintf("/groups/%s/new", a.Type)
+	resp, err := c.post(path, a, nil)
 	if err != nil {
 		return nil, err
 	}
