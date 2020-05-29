@@ -11,7 +11,7 @@ type GroupLabel struct {
 	GroupID int         `json:"groupId,omitempty"`
 	BuiltIn int         `json:"builtin,omitempty"`
 	Type    string      `json:"type,omitempty"`
-	Agents  []Agents    `json:"agents,omitempty"`
+	Agents  []Agent     `json:"agents,omitempty"`
 	Tests   interface{} `json:"tests,omitempty"`
 }
 
