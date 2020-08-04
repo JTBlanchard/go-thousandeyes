@@ -33,13 +33,17 @@ type AgentAgent struct {
 	DSCPID                 int          `json:"dscpId"`
 	Interval               int          `json:"interval,omitempty"`
 	MSS                    int          `json:"mss,omitempty"`
+	NetworkMeasurements    int          `json:"networkMeasurements,omitempty"`
+	MTUMeasurements        int          `json:"mtuMeasurements,omitempty"`
 	NumPathTraces          int          `json:"numPathTraces,omitempty"`
+	PathTraceMode          int          `json:"pathTraceMode,omitempty"`
 	Port                   int          `json:"port,omitempty"`
 	Protocol               string       `json:"protocol,omitempty"`
 	TargetAgentID          int          `json:"targetAgentId,omitempty"`
 	ThroughputDuration     int          `json:"throughputDuration,omitempty"`
 	ThroughputMeasurements int          `json:"throughputMeasurements,omitempty"`
 	ThroughputRate         int          `json:"throughputRate,omitempty"`
+	UsePublicBGP           int          `json:"usePublicBgp,omitempty"`
 }
 
 // AddAgent - Adds an agent to agent test

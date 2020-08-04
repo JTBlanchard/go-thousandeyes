@@ -30,6 +30,8 @@ type PageLoad struct {
 	BandwidthMeasurements int          `json:"bandwidthMeasurements,omitempty"`
 	BGPMeasurements       int          `json:"bgpMeasurements,omitempty"`
 	BGPMonitors           []BGPMonitor `json:"bgpMonitors,omitempty"`
+	ContentRegex          string       `json:"contentRegex,omitempty"`
+	FollowRedirects       int          `json:"followRedirects,omitempty"`
 	HTTPInterval          int          `json:"httpInterval,omitempty"`
 	HTTPTargetTime        int          `json:"httpTargetTime,omitempty"`
 	HTTPTimeLimit         int          `json:"httpTimeLimit,omitempty"`
@@ -47,8 +49,10 @@ type PageLoad struct {
 	Protocol              string       `json:"protocol,omitempty"`
 	SSLVersion            string       `json:"sslVersion,omitempty"`
 	SSLVersionID          int          `json:"sslVersionId,omitempty"`
+	Subinterval           int          `json:"subinterval,omitempty"`
 	URL                   string       `json:"url,omitempty"`
 	UseNTLM               int          `json:"useNtlm,omitempty"`
+	UsePublicBGP          int          `json:"usePublicBgp,omitempty"`
 	UserAgent             string       `json:"userAgent,omitempty"`
 	Username              string       `json:"username,omitempty"`
 	VerifyCertificate     int          `json:"verifyCertificate,omitempty"`

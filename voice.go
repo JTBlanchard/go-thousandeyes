@@ -38,7 +38,9 @@ type RTPStream struct {
 	JitterBuffer    int     `json:"jitterBuffer,omitempty"`
 	MTUMeasurements int     `json:"mtuMeasurements,omitempty"`
 	NumPathTraces   int     `json:"numPathTraces,omitempty"`
+	Server          string  `json:"server,omitempty"`
 	TargetAgentID   int     `json:"targetAgentId,omitempty"`
+	UsePublicBGP    int     `json:"usePublicBgp,omitempty"`
 }
 
 // AddAgent - Add agent to voice call  test

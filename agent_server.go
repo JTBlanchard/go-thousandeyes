@@ -31,12 +31,14 @@ type AgentServer struct {
 	BGPMonitors           []BGPMonitor `json:"bgpMonitors,omitempty"`
 	Interval              int          `json:"interval,omitempty"`
 	MTUMeasurements       int          `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements   int          `json:"networkMeasurements,omitempty"`
 	NumPathTraces         int          `json:"numPathTraces,omitempty"`
 	PathTraceMode         int          `json:"pathTraceMode,omitempty"`
 	Port                  int          `json:"port,omitempty"`
 	ProbeMode             string       `json:"probeMode,omitempty"`
 	Protocol              string       `json:"protocol,omitempty"`
 	Server                string       `json:"server,omitempty"`
+	UsePublicBGP          int          `json:"usePublicBgp,omitempty"`
 }
 
 // AddAgent - Add agent to server test

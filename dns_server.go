@@ -46,6 +46,7 @@ type DNSServer struct {
 	ProbeMode             string       `json:"probeMode,omitempty"`
 	Protocol              string       `json:"protocol,omitempty"`
 	RecursiveQueries      int          `json:"recursiveQueries,omitempty"`
+	UsePublicBGP          int          `json:"usePublicBgp,omitempty"`
 }
 
 // AddAgent - Add dns server test
