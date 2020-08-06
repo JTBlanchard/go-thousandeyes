@@ -27,20 +27,21 @@ type RTPStream struct {
 	// LiveShare is common to all tests except DNS+
 	LiveShare int `json:"liveShare,omitempty"`
 	// Fields unique to this test
-	Agents          []Agent `json:"agents,omitempty"`
-	BGPMeasurements int     `json:"bgpMeasurements,omitempty"`
-	Codec           string  `json:"codec,omitempty"`
-	CodecID         int     `json:"codecId,omitempty"`
-	DSCP            string  `json:"dscp,omitempty"`
-	DSCPID          int     `json:"dscpId,omitempty"`
-	Duration        int     `json:"duration,omitempty"`
-	Interval        int     `json:"interval,omitempty"`
-	JitterBuffer    int     `json:"jitterBuffer,omitempty"`
-	MTUMeasurements int     `json:"mtuMeasurements,omitempty"`
-	NumPathTraces   int     `json:"numPathTraces,omitempty"`
-	Server          string  `json:"server,omitempty"`
-	TargetAgentID   int     `json:"targetAgentId,omitempty"`
-	UsePublicBGP    int     `json:"usePublicBgp,omitempty"`
+	Agents          []Agent      `json:"agents,omitempty"`
+	BGPMeasurements int          `json:"bgpMeasurements,omitempty"`
+	BGPMonitors     []BGPMonitor `json:"bgpMonitors,omitempty"`
+	Codec           string       `json:"codec,omitempty"`
+	CodecID         int          `json:"codecId,omitempty"`
+	DSCP            string       `json:"dscp,omitempty"`
+	DSCPID          int          `json:"dscpId,omitempty"`
+	Duration        int          `json:"duration,omitempty"`
+	Interval        int          `json:"interval,omitempty"`
+	JitterBuffer    int          `json:"jitterBuffer,omitempty"`
+	MTUMeasurements int          `json:"mtuMeasurements,omitempty"`
+	NumPathTraces   int          `json:"numPathTraces,omitempty"`
+	Server          string       `json:"server,omitempty"`
+	TargetAgentID   int          `json:"targetAgentId,omitempty"`
+	UsePublicBGP    int          `json:"usePublicBgp,omitempty"`
 }
 
 // AddAgent - Add agent to voice call  test
