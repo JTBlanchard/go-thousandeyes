@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient_GetHTTPServer(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"http-server","interval":300,"url":"https://test.com","protocol":"TCP","ipv6Policy":"USE_AGENT_POLICY","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBgp":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"followRedirects":1,"sslVersionId":0,"verifyCertificate":1,"useNtlm":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}],"sslVersion":"Auto"}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"http-server","interval":300,"url":"https://test.com","protocol":"TCP","ipv6Policy":"USE_AGENT_POLICY","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"followRedirects":1,"sslVersionId":0,"verifyCertificate":1,"useNTLM":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}],"sslVersion":"Auto"}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
@@ -29,9 +29,10 @@ func TestClient_GetHTTPServer(t *testing.T) {
 		URL:                   "https://test.com",
 		Protocol:              "TCP",
 		NetworkMeasurements:   1,
-		MtuMeasurements:       1,
+		MTUMeasurements:       1,
 		BandwidthMeasurements: 0,
-		BgpMeasurements:       1,
+		BGPMeasurements:       1,
+		UsePublicBGP:          1,
 		AlertsEnabled:         1,
 		LiveShare:             0,
 		HTTPTimeLimit:         5,
@@ -39,9 +40,9 @@ func TestClient_GetHTTPServer(t *testing.T) {
 		HTTPVersion:           2,
 		FollowRedirects:       1,
 		NumPathTraces:         3,
-		SslVersionID:          0,
+		SSLVersionID:          0,
 		VerifyCertificate:     1,
-		UseNtlm:               0,
+		UseNTLM:               0,
 		AuthType:              "NONE",
 		ContentRegex:          "",
 		ProbeMode:             "AUTO",
@@ -57,13 +58,13 @@ func TestClient_GetHTTPServer(t *testing.T) {
 				Prefix:      "135.84.184.0/22",
 			},
 		},
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
-		BgpMonitors: []Monitor{
+		BGPMonitors: []Monitor{
 			{
 				MonitorID:   64,
 				IPAddress:   "2001:240:100:ff::2497:2",
@@ -73,7 +74,7 @@ func TestClient_GetHTTPServer(t *testing.T) {
 				MonitorType: "Public",
 			},
 		},
-		SslVersion: "Auto",
+		SSLVersion: "Auto",
 		APILinks: APILinks{
 			{
 				Href: "https://api.thousandeyes.com/v6/tests/1226221",
@@ -105,7 +106,7 @@ func TestClient_GetHTTPServer(t *testing.T) {
 }
 
 func TestClient_GetHTTPServerJsonError(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 15:28:07",createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"http-server","interval":300,"url":"https://test.com","protocol":"TCP","ipv6Policy":"USE_AGENT_POLICY","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBgp":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"followRedirects":1,"sslVersionId":0,"verifyCertificate":1,"useNtlm":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}],"sslVersion":"Auto"}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 15:28:07",createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"http-server","interval":300,"url":"https://test.com","protocol":"TCP","ipv6Policy":"USE_AGENT_POLICY","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"followRedirects":1,"sslVersionId":0,"verifyCertificate":1,"useNTLM":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}],"sslVersion":"Auto"}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
@@ -118,7 +119,7 @@ func TestClient_GetHTTPServerJsonError(t *testing.T) {
 }
 
 func TestClient_CreateHTTPServer(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"http-server","interval":300,"url":"https://test.com","protocol":"TCP","ipv6Policy":"USE_AGENT_POLICY","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBgp":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"followRedirects":1,"sslVersionId":0,"verifyCertificate":1,"useNtlm":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}],"sslVersion":"Auto"}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"http-server","interval":300,"url":"https://test.com","protocol":"TCP","ipv6Policy":"USE_AGENT_POLICY","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"followRedirects":1,"sslVersionId":0,"verifyCertificate":1,"useNTLM":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}],"sslVersion":"Auto"}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/http-server/new.json", func(w http.ResponseWriter, r *http.Request) {
@@ -140,9 +141,10 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 		URL:                   "https://test.com",
 		Protocol:              "TCP",
 		NetworkMeasurements:   1,
-		MtuMeasurements:       1,
+		MTUMeasurements:       1,
 		BandwidthMeasurements: 0,
-		BgpMeasurements:       1,
+		BGPMeasurements:       1,
+		UsePublicBGP:          1,
 		AlertsEnabled:         1,
 		LiveShare:             0,
 		HTTPTimeLimit:         5,
@@ -150,9 +152,9 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 		HTTPVersion:           2,
 		FollowRedirects:       1,
 		NumPathTraces:         3,
-		SslVersionID:          0,
+		SSLVersionID:          0,
 		VerifyCertificate:     1,
-		UseNtlm:               0,
+		UseNTLM:               0,
 		AuthType:              "NONE",
 		ContentRegex:          "",
 		ProbeMode:             "AUTO",
@@ -168,13 +170,13 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 				Prefix:      "135.84.184.0/22",
 			},
 		},
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
-		BgpMonitors: []Monitor{
+		BGPMonitors: []Monitor{
 			{
 				MonitorID:   64,
 				IPAddress:   "2001:240:100:ff::2497:2",
@@ -184,7 +186,7 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 				MonitorType: "Public",
 			},
 		},
-		SslVersion: "Auto",
+		SSLVersion: "Auto",
 		APILinks: APILinks{
 			{
 				Href: "https://api.thousandeyes.com/v6/tests/1226221",
